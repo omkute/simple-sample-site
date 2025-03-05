@@ -11,6 +11,7 @@ import {
   DollarSign, 
   AlertCircle
 } from 'lucide-react';
+// change
 
 const RegisterCompanyForm = () => {
   const navigate = useNavigate();
