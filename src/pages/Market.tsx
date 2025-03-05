@@ -1,12 +1,10 @@
 
 import { useEffect } from 'react';
-import Hero from '@/components/Hero';
-import HowItWorks from '@/components/HowItWorks';
-import ListedCompanies from '@/components/ListedCompanies';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import MarketOverview from '@/components/MarketOverview';
 
-const Index = () => {
+const Market = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -14,14 +12,12 @@ const Index = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="flex-grow">
-        <Hero />
-        <HowItWorks />
-        <ListedCompanies />
+      <main className="flex-grow bg-sebba-lightgray">
+        <MarketOverview />
       </main>
       <Footer />
     </div>
   );
 };
 
-export default Index;
+export default Market;
