@@ -21,7 +21,7 @@ const Hero = () => {
               to="/register" 
               className="btn bg-white text-sebba-blue hover:bg-opacity-90 px-6 py-3 rounded-full font-medium shadow-sm"
             >
-              Register Company
+              Register Company !
             </Link>
             <a 
                href="https://forms.gle/ZsREE7ncc5dCS3fY8" 
