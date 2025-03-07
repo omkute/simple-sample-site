@@ -9,16 +9,161 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      companies: {
+        Row: {
+          created_at: string | null
+          description: string
+          email: string
+          founder_name: string
+          id: string
+          industry: string
+          initial_shares: number
+          is_approved: boolean | null
+          name: string
+          owner_id: string | null
+          phone: string
+          share_price: number
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          email: string
+          founder_name: string
+          id?: string
+          industry: string
+          initial_shares: number
+          is_approved?: boolean | null
+          name: string
+          owner_id?: string | null
+          phone: string
+          share_price: number
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          email?: string
+          founder_name?: string
+          id?: string
+          industry?: string
+          initial_shares?: number
+          is_approved?: boolean | null
+          name?: string
+          owner_id?: string | null
+          phone?: string
+          share_price?: number
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          email: string
+          full_name: string | null
+          id: string
+          role: Database["public"]["Enums"]["user_role"]
+          updated_at: string | null
+          wallet_balance: number
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          full_name?: string | null
+          id: string
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string | null
+          wallet_balance?: number
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          full_name?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string | null
+          wallet_balance?: number
+        }
+        Relationships: []
+      }
+      stocks: {
+        Row: {
+          company_id: string
+          created_at: string | null
+          id: string
+          purchase_price: number
+          shares: number
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string | null
+          id?: string
+          purchase_price: number
+          shares: number
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string | null
+          id?: string
+          purchase_price?: number
+          shares?: number
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stocks_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      transactions: {
+        Row: {
+          amount: number
+          created_at: string | null
+          description: string | null
+          id: string
+          transaction_type: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          transaction_type: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          transaction_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_user_role: {
+        Args: Record<PropertyKey, never>
+        Returns: Database["public"]["Enums"]["user_role"]
+      }
     }
     Enums: {
-      [_ in never]: never
+      user_role: "admin" | "company" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
