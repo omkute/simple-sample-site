@@ -174,7 +174,7 @@ const AdminCompanyApproval = () => {
                   </TableCell>
                   <TableCell>
                     {company.is_approved === true && (
-                      <Badge variant="success" className="bg-green-100 text-green-800">Approved</Badge>
+                      <Badge variant="default" className="bg-green-100 text-green-800">Approved</Badge>
                     )}
                     {company.is_approved === false && (
                       <Badge variant="destructive" className="bg-red-100 text-red-800">Rejected</Badge>
