@@ -306,7 +306,7 @@ const RegisterCompanyForm = () => {
               )}
             </div>
             
-            {/* <div className="md:col-span-2 space-y-2">
+            <div className="md:col-span-2 space-y-2">
               <label htmlFor="description" className="block text-sm font-medium text-gray-700">
                 Company Description *
               </label>
@@ -325,13 +325,13 @@ const RegisterCompanyForm = () => {
                   } py-2 px-3 shadow-sm focus:border-sebba-blue focus:outline-none focus:ring-1 focus:ring-sebba-blue`}
                   placeholder="Describe your company, business model, and growth potential (min 50 characters)"
                 />
-              </div> */}
-              {/* {errors.description && (
+              </div>
+              {errors.description && (
                 <p className="text-red-500 text-xs mt-1 flex items-center">
                   <AlertCircle size={12} className="mr-1" /> {errors.description}
                 </p>
               )}
-            </div> */}
+            </div>
             
             <div className="space-y-2">
               <label htmlFor="initialShare" className="block text-sm font-medium text-gray-700">
