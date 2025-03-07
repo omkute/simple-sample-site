@@ -1,6 +1,8 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 import { 
   Building, 
   User, 
@@ -11,10 +13,10 @@ import {
   DollarSign, 
   AlertCircle
 } from 'lucide-react';
-// change
 
 const RegisterCompanyForm = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     companyName: '',
     founderName: '',
@@ -87,19 +89,60 @@ const RegisterCompanyForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (validateForm()) {
       setIsSubmitting(true);
       
-      // Simulate API call
-      setTimeout(() => {
-        setIsSubmitting(false);
-        // Show success message and redirect
-        alert('Company registration submitted successfully! Your application will be reviewed.');
+      try {
+        // Get the current user ID if available
+        const { data: { user } } = await supabase.auth.getUser();
+        const ownerId = user?.id;
+
+        // Insert company data into Supabase
+        const { data, error } = await supabase
+          .from('companies')
+          .insert([
+            { 
+              name: formData.companyName,
+              founder_name: formData.founderName,
+              email: formData.email,
+              phone: formData.phone,
+              industry: formData.industry,
+              description: formData.description,
+              initial_shares: parseInt(formData.initialShare),
+              share_price: parseFloat(formData.sharePrice),
+              owner_id: ownerId || null,
+              // Initialize trading values
+              total_shares: parseInt(formData.initialShare),
+              available_shares: parseInt(formData.initialShare),
+              current_price: parseFloat(formData.sharePrice),
+              market_cap: parseInt(formData.initialShare) * parseFloat(formData.sharePrice),
+              public_shares_percent: 100
+            }
+          ])
+          .select();
+
+        if (error) throw error;
+        
+        toast({
+          title: "Success!",
+          description: "Company registration submitted successfully! Your application will be reviewed.",
+        });
+        
+        // Redirect after successful submission
         navigate('/market');
-      }, 1500);
+      } catch (error: any) {
+        console.error('Error submitting company:', error);
+        toast({
+          variant: "destructive",
+          title: "Registration Failed",
+          description: error.message || "There was an error submitting your company registration.",
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 

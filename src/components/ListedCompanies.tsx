@@ -25,7 +25,10 @@ const ListedCompanies = () => {
           .eq('is_approved', true)
           .order('created_at', { ascending: false });
         
-        if (error) throw error;
+        if (error) {
+          console.error('Error fetching companies:', error);
+          throw error;
+        }
         
         setCompanies(data || []);
       } catch (error) {

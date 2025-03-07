@@ -11,7 +11,9 @@ export type Database = {
     Tables: {
       companies: {
         Row: {
+          available_shares: number | null
           created_at: string | null
+          current_price: number | null
           description: string
           email: string
           founder_name: string
@@ -19,14 +21,19 @@ export type Database = {
           industry: string
           initial_shares: number
           is_approved: boolean | null
+          market_cap: number | null
           name: string
           owner_id: string | null
           phone: string
+          public_shares_percent: number | null
           share_price: number
+          total_shares: number | null
           updated_at: string | null
         }
         Insert: {
+          available_shares?: number | null
           created_at?: string | null
+          current_price?: number | null
           description: string
           email: string
           founder_name: string
@@ -34,14 +41,19 @@ export type Database = {
           industry: string
           initial_shares: number
           is_approved?: boolean | null
+          market_cap?: number | null
           name: string
           owner_id?: string | null
           phone: string
+          public_shares_percent?: number | null
           share_price: number
+          total_shares?: number | null
           updated_at?: string | null
         }
         Update: {
+          available_shares?: number | null
           created_at?: string | null
+          current_price?: number | null
           description?: string
           email?: string
           founder_name?: string
@@ -49,10 +61,13 @@ export type Database = {
           industry?: string
           initial_shares?: number
           is_approved?: boolean | null
+          market_cap?: number | null
           name?: string
           owner_id?: string | null
           phone?: string
+          public_shares_percent?: number | null
           share_price?: number
+          total_shares?: number | null
           updated_at?: string | null
         }
         Relationships: []
@@ -160,6 +175,10 @@ export type Database = {
       get_user_role: {
         Args: Record<PropertyKey, never>
         Returns: Database["public"]["Enums"]["user_role"]
+      }
+      is_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
       }
     }
     Enums: {

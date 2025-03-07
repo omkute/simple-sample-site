@@ -25,7 +25,10 @@ const MarketOverview = () => {
           .select('id, name, current_price, available_shares, total_shares, market_cap')
           .eq('is_approved', true);
         
-        if (error) throw error;
+        if (error) {
+          console.error('Error fetching companies:', error);
+          throw error;
+        }
         
         // Transform the data to match the Stock interface
         const stocksData = (data || []).map(company => ({
