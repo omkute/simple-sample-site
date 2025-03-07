@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import AdminCompanyApproval from '@/components/AdminCompanyApproval';
 import AdminUserManagement from '@/components/AdminUserManagement';
+import AdminTransactions from '@/components/AdminTransactions';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from '@/hooks/useAuth';
 import { AlertCircle } from 'lucide-react';
@@ -82,6 +83,7 @@ const AdminDashboard = () => {
             <TabsList className="mb-6">
               <TabsTrigger value="companies">Company Approvals</TabsTrigger>
               <TabsTrigger value="users">User Management</TabsTrigger>
+              <TabsTrigger value="transactions">Transactions</TabsTrigger>
             </TabsList>
             
             <TabsContent value="companies">
@@ -90,6 +92,10 @@ const AdminDashboard = () => {
             
             <TabsContent value="users">
               <AdminUserManagement />
+            </TabsContent>
+            
+            <TabsContent value="transactions">
+              <AdminTransactions />
             </TabsContent>
           </Tabs>
         </div>

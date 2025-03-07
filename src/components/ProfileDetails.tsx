@@ -4,6 +4,7 @@ import { User, IndianRupee, LogOut } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
+import UserPortfolio from './UserPortfolio';
 
 const ProfileDetails = () => {
   const { profile, loading } = useAuth();
@@ -54,7 +55,12 @@ const ProfileDetails = () => {
             <p className="text-gray-600">{profile.email}</p>
             <p className="text-gray-600 mt-1">Role: {profile.role}</p>
             <div className="mt-4 flex gap-4">
-              <button className="btn-secondary text-sm">Portfolio</button>
+              <button 
+                className="btn-secondary text-sm"
+                onClick={() => document.getElementById('portfolio-section')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Portfolio
+              </button>
               <button
                 onClick={handleLogout}
                 className="btn-secondary text-sm flex items-center text-red-600 hover:text-red-700"
@@ -74,6 +80,10 @@ const ProfileDetails = () => {
               <span className="text-3xl font-bold">{profile.wallet_balance.toFixed(2)}</span>
             </div>
           </div>
+        </div>
+        
+        <div id="portfolio-section">
+          <UserPortfolio />
         </div>
       </div>
     </div>
