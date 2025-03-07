@@ -14,7 +14,7 @@ const EventDetails = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">BizSpark 2025</h1>
-          <p className="text-xl text-center text-gray-600 mb-10">Anantha Engineering College, Chirala</p>
+          <p className="text-xl text-center text-gray-600 mb-10">Anantha Engineering College, Chikahli</p>
           
           <div className="bg-white rounded-lg shadow-md p-8 mb-10">
             <p className="text-gray-700 mb-8">
