@@ -1,4 +1,3 @@
-
 import { useNavigate } from 'react-router-dom';
 import { User, IndianRupee, LogOut } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
@@ -61,6 +60,14 @@ const ProfileDetails = () => {
               >
                 Portfolio
               </button>
+              {profile.role === 'admin' && (
+                <button
+                  className="btn-secondary text-sm"
+                  onClick={() => navigate('/admin')}
+                >
+                  Admin Dashboard
+                </button>
+              )}
               <button
                 onClick={handleLogout}
                 className="btn-secondary text-sm flex items-center text-red-600 hover:text-red-700"
