@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from "@/integrations/supabase/client";
-import { Users, Wallet, RefreshCw } from 'lucide-react';
+import { Users, Wallet, RefreshCw, IndianRupee } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
@@ -103,7 +103,7 @@ const AdminUserManagement = () => {
       
       toast({
         title: "Success",
-        description: `Deposited $${amount.toFixed(2)} to user's wallet`,
+        description: `Deposited ₹${amount.toFixed(2)} to user's wallet`,
       });
       
       // Clear the input field
@@ -193,7 +193,7 @@ const AdminUserManagement = () => {
                   <TableCell>
                     <div className="flex items-center">
                       <Wallet size={16} className="mr-2 text-gray-500" />
-                      ${user.wallet_balance.toFixed(2)}
+                      <IndianRupee size={15} />{user.wallet_balance.toFixed(2)}
                     </div>
                   </TableCell>
                   <TableCell className="text-right">
