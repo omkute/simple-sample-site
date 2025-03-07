@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -29,7 +28,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/dashboard" className="text-gray-600 hover:text-sebba-blue text-sm transition-colors">
-                  Dashboard
+                  -
                 </Link>
               </li>
               <li>
@@ -84,6 +83,11 @@ const Footer = () => {
         <div className="mt-8 pt-6 border-t border-gray-200">
           <p className="text-center text-sm text-gray-600">
             &copy; {currentYear} SEBBA. All rights reserved.
+          </p>
+          <p className="text-center text-sm text-gray-600 mt-2">
+            Designed and Developed by 
+            <a href='https://www.linkedin.com/in/om-kute-a97014196/' target='_blank' className="text-sebba-blue hover:underline ml-1">Om</a> & 
+            <a href='https://www.linkedin.com/in/k-aditya29/' target='_blank' className="text-sebba-blue hover:underline ml-1">Aditya</a>
           </p>
         </div>
       </div>

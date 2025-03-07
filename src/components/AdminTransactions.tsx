@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { supabase } from "@/integrations/supabase/client";
 import { RefreshCw, IndianRupee, CreditCard } from 'lucide-react';
@@ -6,6 +5,17 @@ import { useToast } from "@/components/ui/use-toast";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import * as XLSX from 'xlsx'; // Add this import
+
+interface Stock {
+  id: string;
+  user_id: string;
+  company_id: string | null;
+  shares: number;
+  purchase_price: number;
+  created_at: string;
+  updated_at: string;
+}
 
 interface Transaction {
   id: string;
@@ -32,9 +42,9 @@ const AdminTransactions = () => {
     try {
       setRefreshing(true);
       
-      // Fetch transactions with user and company details
+      // Fetch stocks with user and company details
       const { data, error } = await supabase
-        .from('transactions')
+        .from('stocks')
         .select(`
           *,
           profiles:user_id (email, full_name),
@@ -45,22 +55,23 @@ const AdminTransactions = () => {
       if (error) throw error;
       
       // Transform the data
-      const transformedData = (data || []).map(transaction => ({
-        id: transaction.id,
-        user_id: transaction.user_id,
-        user_email: transaction.profiles?.email || 'Unknown',
-        user_name: transaction.profiles?.full_name || 'Unknown User',
-        amount: transaction.amount,
-        transaction_type: transaction.transaction_type,
-        description: transaction.description || '',
-        created_at: transaction.created_at,
-        company_id: transaction.company_id,
-        company_name: transaction.companies?.name || null,
-        shares: transaction.shares,
-        price_per_share: transaction.price_per_share
+      const transformedData = (data || []).map(stock => ({
+        id: stock.id,
+        user_id: stock.user_id,
+        user_email: stock.profiles?.email || 'Unknown',
+        user_name: stock.profiles?.full_name || 'Unknown User',
+        amount: stock.shares * stock.purchase_price,
+        transaction_type: 'stock',
+        description: `Purchased ${stock.shares} shares`,
+        created_at: stock.created_at,
+        company_id: stock.company_id,
+        company_name: stock.companies?.name || null,
+        shares: stock.shares,
+        price_per_share: stock.purchase_price
       }));
       
       setTransactions(transformedData);
+      console.log(transactions);
     } catch (error: any) {
       console.error('Error fetching transactions:', error);
       toast({
@@ -78,6 +89,14 @@ const AdminTransactions = () => {
     fetchTransactions();
   }, []);
 
+  const downloadExcel = () => {
+    const transformedData = transactions.map(({ id, user_id, company_id, ...rest }) => rest);
+    const worksheet = XLSX.utils.json_to_sheet(transformedData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Transactions");
+    XLSX.writeFile(workbook, "transactions.xlsx");
+  };
+
   // Format date for display
   const formatDate = (dateString: string) => {
     if (!dateString) return 'N/A';
@@ -94,14 +113,8 @@ const AdminTransactions = () => {
   // Get transaction type badge
   const getTransactionBadge = (type: string) => {
     switch (type) {
-      case 'buy':
-        return <Badge className="bg-green-100 text-green-800">Buy</Badge>;
-      case 'sell':
-        return <Badge className="bg-blue-100 text-blue-800">Sell</Badge>;
-      case 'deposit':
-        return <Badge className="bg-purple-100 text-purple-800">Deposit</Badge>;
-      case 'withdrawal':
-        return <Badge className="bg-orange-100 text-orange-800">Withdrawal</Badge>;
+      case 'stock':
+        return <Badge className="bg-green-100 text-green-800">Stock</Badge>;
       default:
         return <Badge className="bg-gray-100 text-gray-800">{type}</Badge>;
     }
@@ -121,16 +134,26 @@ const AdminTransactions = () => {
     <div>
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold">Transaction History</h2>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={fetchTransactions}
-          disabled={refreshing}
-          className="flex items-center gap-2"
-        >
-          <RefreshCw size={16} className={`${refreshing ? 'animate-spin' : ''}`} />
-          Refresh
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={fetchTransactions}
+            disabled={refreshing}
+            className="flex items-center gap-2"
+          >
+            <RefreshCw size={16} className={`${refreshing ? 'animate-spin' : ''}`} />
+            Refresh
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={downloadExcel}
+            className="flex items-center gap-2"
+          >
+            Download Excel
+          </Button>
+        </div>
       </div>
 
       {transactions.length === 0 ? (

@@ -48,7 +48,7 @@ const EventDetails = () => {
               ) : (
                 <button 
                   onClick={handleRegister}
-                  className="btn-primary px-6 py-3 rounded-md"
+                  className="btn-primary px-6 items-center py-3 flex rounded-md"
                 >
                   Register Now
                 </button>

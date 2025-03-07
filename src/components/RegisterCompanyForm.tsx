@@ -11,7 +11,9 @@ import {
   Briefcase, 
   FileText, 
   DollarSign, 
-  AlertCircle
+  AlertCircle,
+  IndianRupee,
+  LucideCircleArrowOutDownRight
 } from 'lucide-react';
 
 const RegisterCompanyForm = () => {
@@ -304,7 +306,7 @@ const RegisterCompanyForm = () => {
               )}
             </div>
             
-            <div className="md:col-span-2 space-y-2">
+            {/* <div className="md:col-span-2 space-y-2">
               <label htmlFor="description" className="block text-sm font-medium text-gray-700">
                 Company Description *
               </label>
@@ -323,13 +325,13 @@ const RegisterCompanyForm = () => {
                   } py-2 px-3 shadow-sm focus:border-sebba-blue focus:outline-none focus:ring-1 focus:ring-sebba-blue`}
                   placeholder="Describe your company, business model, and growth potential (min 50 characters)"
                 />
-              </div>
-              {errors.description && (
+              </div> */}
+              {/* {errors.description && (
                 <p className="text-red-500 text-xs mt-1 flex items-center">
                   <AlertCircle size={12} className="mr-1" /> {errors.description}
                 </p>
               )}
-            </div>
+            </div> */}
             
             <div className="space-y-2">
               <label htmlFor="initialShare" className="block text-sm font-medium text-gray-700">
@@ -337,7 +339,7 @@ const RegisterCompanyForm = () => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <DollarSign size={18} className="text-gray-400" />
+                  <LucideCircleArrowOutDownRight size={18} className="text-gray-400" />
                 </div>
                 <input
                   type="number"
@@ -361,11 +363,11 @@ const RegisterCompanyForm = () => {
             
             <div className="space-y-2">
               <label htmlFor="sharePrice" className="block text-sm font-medium text-gray-700">
-                Initial Share Price ($) *
+                Initial Share Price (₹) *
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <DollarSign size={18} className="text-gray-400" />
+                  <IndianRupee size={18} className="text-gray-400" />
                 </div>
                 <input
                   type="number"
@@ -401,14 +403,14 @@ const RegisterCompanyForm = () => {
               <button
                 type="button"
                 onClick={() => navigate('/')}
-                className="btn bg-white text-sebba-blue border border-sebba-blue mr-4 hover:bg-sebba-blue hover:bg-opacity-10"
+                className="btn bg-white text-sebba-blue border border-sebba-blue mr-4 hover:bg-sebba-blue hover:bg-opacity-10 px-4 py-2"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="btn bg-sebba-blue text-white hover:bg-opacity-90"
+                className="btn bg-sebba-blue text-white hover:bg-opacity-90 px-4 py-2  "
               >
                 {isSubmitting ? (
                   <span className="flex items-center">
