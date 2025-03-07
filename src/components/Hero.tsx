@@ -23,13 +23,12 @@ const Hero = () => {
             >
               Register Company !
             </Link>
-            <a 
-               href="https://forms.gle/ZsREE7ncc5dCS3fY8" 
-               target="_blank" 
+            <Link 
+              to='/market' 
               className="btn bg-transparent text-white border border-white hover:bg-white hover:bg-opacity-10 px-6 py-3 rounded-full font-medium"
             >
               Start Trading
-            </a>
+            </Link>
           </div>
         </div>
       </div>
