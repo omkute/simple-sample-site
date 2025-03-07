@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import RegisterCompany from "./pages/RegisterCompany";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/profile" element={<Profile />} />
           <Route path="/register" element={<RegisterCompany />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
